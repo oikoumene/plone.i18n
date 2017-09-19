@@ -10,7 +10,7 @@ from zope.interface import implements
 
 # Define and compile static regexes
 FILENAME_REGEX = re.compile(r"^(.+)\.(\w{,4})$")
-IGNORE_REGEX = re.compile(r"['\"\u201c\u201d\u2019\u2018\u0027]")
+IGNORE_REGEX = re.compile(r"['\"]")
 NON_WORD_REGEX = re.compile(r"[\W\-]+")
 DANGEROUS_CHARS_REGEX = re.compile(r"[!$%&()*+,/:;<=>?@\\^{|}\[\]~`]+")
 URL_DANGEROUS_CHARS_REGEX = re.compile(r"[!#$%&()*+,/:;<=>?@\\^{|}\[\]~`]+")
@@ -166,6 +166,8 @@ class URLNormalizer(object):
         Returns a normalized text. text has to be a unicode string and locale
         should be a normal locale, for example: 'pt-BR', 'sr@Latn' or 'de'
         """
+        CUSTOM_IGNORE_REGEX = re.compile(ur"['\"\u201c\u201d\u2019\u2018\u0027\u2013]")
+        text = CUSTOM_IGNORE_REGEX.sub('', text)
         if locale is not None:
             # Try to get a normalizer for the locale
             util = queryUtility(IURLNormalizer, name=locale)
