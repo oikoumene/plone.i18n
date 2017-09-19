@@ -9,8 +9,8 @@ from zope.component import queryUtility
 from zope.interface import implements
 
 # Define and compile static regexes
-FILENAME_REGEX = re.compile(r"^(.+)\.(\w{,4})$\[\u201c\u201d\u2019\u2018\u0027]")
-IGNORE_REGEX = re.compile(r"['\"]")
+FILENAME_REGEX = re.compile(r"^(.+)\.(\w{,4})$")
+IGNORE_REGEX = re.compile(r"['\"\u201c\u201d\u2019\u2018\u0027]")
 NON_WORD_REGEX = re.compile(r"[\W\-]+")
 DANGEROUS_CHARS_REGEX = re.compile(r"[!$%&()*+,/:;<=>?@\\^{|}\[\]~`]+")
 URL_DANGEROUS_CHARS_REGEX = re.compile(r"[!#$%&()*+,/:;<=>?@\\^{|}\[\]~`]+")
